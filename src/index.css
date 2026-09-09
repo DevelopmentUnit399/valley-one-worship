@@ -33,6 +33,16 @@ body {
 }
 
 /* Lock to full viewport width and fill remaining screen height minus the 80px navbar */
+.home-container,
+.hero-slider-wrapper,
+.slider-container,
+.media-swiper {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .home-container {
   width: 100vw;
   height: calc(100vh - 80px);
@@ -64,7 +74,7 @@ body {
 .media-swiper {
   width: 100%;
   height: 100%;
-  padding: 10px 0 !important;
+  padding: 0 !important;
   display: flex;
   align-items: center;
 }
@@ -72,15 +82,14 @@ body {
 /* Fluid card size: scales down on smaller displays while maintaining bounds */
 .slide-card {
   position: relative;
-  width: 86vw !important;
-  max-width: 1250px !important;
-  height: 90% !important;
-  max-height: none !important;
-  border-radius: 28px;
+  width: 100% !important;
+  max-width: none !important;
+  height: calc(100vh - 80px) !important;
+  max-height: 100% !important;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
-  transition: opacity 0.3s ease;
-  opacity: 0.35;
+  box-shadow: none;
+  opacity: 1;
 }
 
 .slide-card.swiper-slide-active {
@@ -119,12 +128,12 @@ body {
   -webkit-user-drag: none;
 }
 
+.media-background,
 .media-background img,
 .media-background video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 /* Gradient overlay to ensure text contrast */
@@ -150,7 +159,7 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   gap: 1.5rem;
-  padding: 2rem;
+  padding: 2.5rem 3rem;
   box-sizing: border-box;
 }
 
@@ -213,38 +222,6 @@ body {
   right: 1.5rem !important;
 }
 
-/* Mobile responsive adjustments */
-@media (max-width: 640px) {
-  .slide-card {
-    width: 88vw !important;
-    height: 80% !important;
-  }
-
-  .card-content-bottom {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.25rem;
-  }
-
-  .card-text-left {
-    max-width: 100%;
-  }
-
-  .card-text-left p {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .swiper-button-prev,
-  .swiper-button-next {
-    display: none !important;
-    /* Hide arrows on small touch devices */
-  }
-}
-
 /* Centered status indicator badge */
 .video-status-icon {
   position: absolute;
@@ -277,11 +254,49 @@ body {
   height: 28px;
 }
 
-/* Mobile Sizing */
+/* Mobile responsive adjustments */
 @media (max-width: 640px) {
   .slide-card {
-    width: 94vw !important;
-    height: 92% !important;
-    border-radius: 18px;
+    width: 100% !important;
+    height: calc(100vh - 80px) !important;
+    border-radius: 0 !important;
+  }
+
+  .card-content-bottom {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    text-align: center;
+    gap: 1.25rem;
+    padding: 2rem 1.25rem;
+  }
+
+  .card-text-left {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .card-text-left h2 {
+    text-align: center;
+  }
+
+  .card-text-left p {
+    text-align: center;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-btn-right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
   }
 }

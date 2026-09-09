@@ -97,7 +97,7 @@ export default function EventsSection() {
               return (
                 <div
                   key={event.id}
-                  className="py-6 px-4 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-colors duration-200 hover:bg-neutral-950/70 rounded-2xl"
+                  className="py-6 px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-center justify-between gap-6 transition-colors duration-200 hover:bg-neutral-950/70 rounded-2xl text-center md:text-left"
                 >
                   {/* Left: Date Badge */}
                   <div className="flex items-center gap-4 shrink-0">
@@ -143,7 +143,7 @@ export default function EventsSection() {
                   </div>
 
                   {/* Right: Actions (Tickets & RSVP) */}
-                  <div className="flex items-center gap-3 shrink-0 self-start md:self-center">
+                  <div className="flex items-center gap-3 justify-center shrink-0 self-center">
                     <a
                       href={event.url}
                       target="_blank"
@@ -169,7 +169,6 @@ export default function EventsSection() {
             })}
           </div>
         )}
-
       </div>
     </section>
   )
