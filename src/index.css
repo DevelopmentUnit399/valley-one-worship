@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Helvetica';
+  src: url('./assets/fonts/helvetica.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Helvetica', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.row {
+  width: 100%;
+  max-width: 1800px;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+
+/* Lock to full viewport width and fill remaining screen height minus the 80px navbar */
+.home-container {
+  width: 100vw;
+  height: calc(100vh - 80px);
+  max-height: calc(100vh - 80px);
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.hero-slider-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.media-swiper {
+  width: 100%;
+  height: 100%;
+  padding: 10px 0 !important;
+  display: flex;
+  align-items: center;
+}
+
+/* Fluid card size: scales down on smaller displays while maintaining bounds */
+.slide-card {
+  position: relative;
+  width: 86vw !important;
+  max-width: 1250px !important;
+  height: 90% !important;
+  max-height: none !important;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+  transition: opacity 0.3s ease;
+  opacity: 0.35;
+}
+
+.slide-card.swiper-slide-active {
+  opacity: 1;
+}
+
+/* Float arrows closer to the viewport edges so they don't overlap the wider cards */
+.swiper-button-prev {
+  left: 24px !important;
+}
+
+.swiper-button-next {
+  right: 24px !important;
+}
+
+/* Background media fills the entire card */
+.media-background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  touch-action: pan-y;
+  
+}
+
+.media-background video {
+  pointer-events: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.media-background img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.media-background img,
+.media-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Gradient overlay to ensure text contrast */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 30%,
+      rgba(0, 0, 0, 0.45) 60%,
+      rgba(0, 0, 0, 0.9) 100%);
+  pointer-events: none;
+}
+
+/* Bottom content alignment */
+.card-content-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.card-text-left {
+  text-align: left;
+  max-width: 65%;
+  color: #ffffff;
+}
+
+.card-text-left h2 {
+  font-size: clamp(1.2rem, 2.2vw, 2rem);
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.card-text-left p {
+  font-size: clamp(0.78rem, 1vw, 0.95rem);
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+.card-btn-right {
+  flex-shrink: 0;
+}
+
+.action-button {
+  display: inline-block;
+  background: #ffffff;
+  color: #000000;
+  padding: 0.75rem 1.6rem;
+  border-radius: 9999px;
+  font-size: clamp(0.8rem, 0.95vw, 0.95rem);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.action-button:hover {
+  background-color: #e5e7eb;
+  transform: translateY(-2px);
+}
+
+/* Swiper arrow navigation */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #ffffff !important;
+  z-index: 30 !important;
+  top: 50% !important;
+  transform: translateY(-50%);
+}
+
+.swiper-button-prev {
+  left: 1.5rem !important;
+}
+
+.swiper-button-next {
+  right: 1.5rem !important;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .slide-card {
+    width: 88vw !important;
+    height: 80% !important;
+  }
+
+  .card-content-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .card-text-left {
+    max-width: 100%;
+  }
+
+  .card-text-left p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none !important;
+    /* Hide arrows on small touch devices */
+  }
+}
+
+/* Centered status indicator badge */
+.video-status-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.video-status-icon.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.video-status-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Mobile Sizing */
+@media (max-width: 640px) {
+  .slide-card {
+    width: 94vw !important;
+    height: 92% !important;
+    border-radius: 18px;
+  }
+}
