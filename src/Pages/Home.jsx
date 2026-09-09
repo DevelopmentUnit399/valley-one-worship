@@ -15,6 +15,7 @@ import homepageVideo from '../assets/videos/homepage_video.mp4'
 import aboutImage1 from '../assets/about-image-1.jpg'
 import aboutImage2 from '../assets/about-image-2.jpg'
 import EventsSection from '../Components/EventsSection'
+import BookingHome from '../Components/BookingHome'
 
 const LATEST_ALBUM = {
     title: 'Heal Our Land',
@@ -245,7 +246,7 @@ export default function Home() {
                 </section>
             </main>
 
-            <section className="bg-white py-16 px-6">
+            <section className="bg-black py-16 px-6">
                 <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
                     {/* Left Image */}
                     <div className="w-full md:w-1/2 flex justify-center">
@@ -257,19 +258,19 @@ export default function Home() {
                     </div>
 
                     {/* Right Text (Column Aligned) */}
-                    <div className="w-full md:w-1/2 flex flex-col items-start justify-center text-left text-neutral-900">
+                    <div className="w-full md:w-1/2 flex flex-col items-start justify-center text-left text-white">
                         <h2 className="text-3xl font-bold mb-4">We Are Valley One Worship</h2>
-                        <p className="text-neutral-600 leading-relaxed mb-6">
+                        <p className="text-white leading-relaxed mb-6">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo dolorem cupiditate sit laborum facere consequuntur at alias pariatur debitis ex, beatae minus iste quidem sed eum numquam error.
                         </p>
-                        <Link to="/about" className="action-button bg-black! text-white! hover:bg-neutral-800!">
+                        <Link to="/about" className="action-button bg-white! text-black! hover:bg-[#a8a7a7]!">
                             Read More →
                         </Link>
                     </div>
                 </div>
             </section>
 
-            <section className="bg-black text-white py-20 px-6 sm:px-12 w-full">
+            <section className="bg-white text-black py-20 px-6 sm:px-12 w-full">
                 <div className="row mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
                     
                     {/* Left Section: Title, Description & More Button */}
@@ -282,7 +283,7 @@ export default function Home() {
                         </p>
                         <Link
                             to="/music"
-                            className="inline-flex items-center gap-2 border border-white text-white rounded-full px-6 py-2.5 text-sm font-semibold tracking-wide transition-colors duration-200 hover:bg-white hover:text-black"
+                            className="inline-flex items-center gap-2 border border-black text-black rounded-full px-6 py-2.5 text-sm font-semibold tracking-wide transition-colors duration-200 hover:bg-black hover:text-white"
                         >
                             <span>More</span>
                             <svg
@@ -305,7 +306,7 @@ export default function Home() {
                             <img
                                 src={LATEST_ALBUM.cover}
                                 alt={LATEST_ALBUM.title}
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                className="w-full h-full object-cover transition-transform rounded-2xl duration-500 group-hover:scale-101"
                             />
                         </Link>
                         <div className="mt-4 text-center">
@@ -349,6 +350,8 @@ export default function Home() {
             </section>
 
             <EventsSection />
+
+            <BookingHome />
 
         </div>
     )

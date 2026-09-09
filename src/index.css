@@ -17,6 +17,14 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 .row {
   width: 100%;
   max-width: 1800px;
