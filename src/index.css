@@ -304,9 +304,4 @@ body {
     display: flex;
     justify-content: center;
   }
-
-  .swiper-button-prev,
-  .swiper-button-next {
-    display: none !important;
-  }
 }
