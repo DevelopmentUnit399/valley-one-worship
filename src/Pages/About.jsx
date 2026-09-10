@@ -5,6 +5,7 @@ import { assets } from '../assets/assets'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import { UseDocumentTitle } from '../Hooks/UseDocumentTitle'
 
 const ABOUT_MEDIA = {
     main: assets.aboutimage1,
@@ -32,6 +33,9 @@ const ABOUT_TEXT = [
 ]
 
 export default function About() {
+
+    UseDocumentTitle('About')
+
     return (
         <section data-theme="light">
             <main className="w-full min-h-screen bg-white text-black pt-0 pb-20 overflow-x-clip">
