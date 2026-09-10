@@ -88,15 +88,25 @@ export default function Home() {
     return (
         <div>
             
-            <HeroBanner SLIDES={SLIDES} />
+            <section data-theme="dark">
+                <HeroBanner SLIDES={SLIDES} />
+            </section>
 
-            <AboutHome about_image={aboutImage2} />
+            <section data-theme="dark">
+                <AboutHome about_image={aboutImage2} />
+            </section>
 
-            <MusicResourcesHome LATEST_ALBUM={LATEST_ALBUM} RECENT_SONGS={RECENT_SONGS} />
+            <section data-theme="light">
+                <MusicResourcesHome LATEST_ALBUM={LATEST_ALBUM} RECENT_SONGS={RECENT_SONGS} />
+            </section>
 
-            <EventsSection />
+            <section data-theme="dark">
+                <EventsSection />
+            </section>
 
-            <BookingHome />
+            <section data-theme="light">
+                <BookingHome />
+            </section>
 
         </div>
     )
