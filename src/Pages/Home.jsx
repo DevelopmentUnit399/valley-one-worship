@@ -11,6 +11,7 @@ import 'swiper/css/bundle'
 import homepageVideo from '../assets/videos/homepage_video.mp4'
 import aboutImage1 from '../assets/about-image-1.jpg'
 import aboutImage2 from '../assets/about-image-2.jpg'
+import aboutImage3 from '../assets/about-image-3.jpg'
 import EventsSection from '../Components/EventsSection'
 import BookingHome from '../Components/BookingHome'
 import MusicResourcesHome from '../Components/MusicResourcesHome'
@@ -75,7 +76,7 @@ const SLIDES = [
     {
         id: 3,
         type: 'image',
-        src: aboutImage2,
+        src: aboutImage3,
         title: 'Lorem ipsum',
         description:
             'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo dolorem cupiditate sit laborum facere consequuntur.',
@@ -93,7 +94,7 @@ export default function Home() {
             </section>
 
             <section data-theme="dark">
-                <AboutHome about_image={aboutImage2} />
+                <AboutHome about_image={aboutImage3} />
             </section>
 
             <section data-theme="light">

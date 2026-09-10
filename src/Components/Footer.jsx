@@ -94,7 +94,7 @@ const Footer = () => {
     return (
         <div className="w-full bg-black text-white pt-20 pb-10">
             {/* Mailing List Section */}
-            <section className="max-w-4xl mx-auto px-6 mb-20 flex flex-col items-center text-center">
+            <section data-theme="dark" className="max-w-4xl mx-auto px-6 mb-20 flex flex-col items-center text-center">
                 <p className="text-neutral-300 text-sm sm:text-base font-medium tracking-wide mb-2">
                     Be the first to hear about music and news.
                 </p>

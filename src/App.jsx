@@ -4,6 +4,7 @@ import Home from './Pages/Home'
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
 import Music from './Pages/Music'
+import About from './Pages/About'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/music" element={<Music />} />
         </Routes>
         <Footer />
