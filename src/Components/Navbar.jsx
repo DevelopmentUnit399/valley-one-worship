@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { assets } from '../assets/assets'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false)
     const [isDarkSection, setIsDarkSection] = useState(true)
+    const location = useLocation()
 
     useEffect(() => {
         const updateNavbarTheme = () => {
@@ -37,7 +38,7 @@ const Navbar = () => {
             window.removeEventListener('scroll', updateNavbarTheme)
             window.removeEventListener('resize', updateNavbarTheme)
         }
-    }, [])
+    }, [location.pathname])
 
     const isLightText = isDarkSection
 
