@@ -101,20 +101,17 @@ export default function EventsSection() {
                 >
                   {/* Left: Date Badge */}
                   <div className="flex items-center gap-4 shrink-0">
-                    <div className="w-16 h-16 rounded-2xl bg-neutral-100 border border-neutral-200 flex flex-col items-center justify-center text-center">
+                    {/* <div className="w-16 h-16 rounded-2xl bg-neutral-100 border border-neutral-200 flex flex-col items-center justify-center text-center">
                       <span className="text-[11px] font-bold tracking-wider text-neutral-500 uppercase">
                         {month}
                       </span>
                       <span className="text-2xl font-black text-neutral-900 leading-none">
                         {day}
                       </span>
-                    </div>
-                    <div className="flex flex-col text-left">
-                      <span className="text-xs font-bold uppercase tracking-wider text-gray-50">
-                        {weekday} &bull; {year}
-                      </span>
-                      <span className="text-xs text-gray-50 font-medium">
-                        {time}
+                    </div> */}
+                    <div className="flex flex-col">
+                      <span className="text-l font-bold uppercase tracking-wider text-center md:text-left text-gray-50">
+                        {month} {day} &bull; {weekday} &bull; {year} <br /> {time}
                       </span>
                     </div>
                   </div>
@@ -122,14 +119,14 @@ export default function EventsSection() {
                   {/* Center: Title & Location */}
                   <div className="flex-1 flex flex-col text-left">
                     {/* Event / Tour Title */}
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-50 tracking-tight leading-snug line-clamp-1">
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-50 tracking-tight leading-snug line-clamp-1 text-center">
                       {eventTitle}
                     </h3>
 
                     {/* Venue & Location pin */}
-                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-1 text-sm text-gray-50">
-                      <span className="font-semibold text-gray-50">{event.venue.name}</span>
-                      <span className="text-neutral-300">&bull;</span>
+                    <div className="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 mt-1 text-sm text-gray-50">
+                      {/* <span className="font-semibold text-gray-50 te">{event.venue.name}</span> */}
+                      {/* <span className="text-neutral-300">&bull;</span> */}
                       <span className="inline-flex items-center gap-1 text-neutral-500">
                         <svg className="w-3.5 h-3.5 text-gray-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
