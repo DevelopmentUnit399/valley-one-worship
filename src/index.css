@@ -49,8 +49,9 @@ body {
 
 .home-container {
   width: 100vw;
-  height: 100vh;
-  max-height: calc(100vh - 80px);
+  height: 60vh;
+  min-height: 440px;
+  max-height: none;
   background: #000;
   display: flex;
   align-items: center;
@@ -163,7 +164,7 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   gap: 1.5rem;
-  padding: 2.5rem 3rem;
+  padding: 1.5rem 2.5rem;
   box-sizing: border-box;
 }
 
@@ -260,9 +261,14 @@ body {
 
 /* Mobile responsive adjustments */
 @media (max-width: 640px) {
+  .home-container {
+    height: 60vh;
+    min-height: 380px;
+  }
+
   .slide-card {
     width: 100% !important;
-    height: calc(100vh - 80px) !important;
+    height: 100% !important;
     border-radius: 0 !important;
   }
 
@@ -271,8 +277,8 @@ body {
     align-items: center;
     justify-content: flex-end;
     text-align: center;
-    gap: 1.25rem;
-    padding: 2rem 1.25rem;
+    gap: 1rem;
+    padding: 1.5rem 1rem;
   }
 
   .card-text-left {

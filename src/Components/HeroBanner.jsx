@@ -99,7 +99,7 @@ const HeroBanner = ({ SLIDES }) => {
                         loop={false}
                         navigation={true}
                         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-                        className="w-full h-screen"
+                        className="w-full h-full"
                     >
                         {SLIDES.map((slide, index) => (
                             <SwiperSlide key={slide.id} className="slide-card">
