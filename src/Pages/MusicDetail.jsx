@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
 import { RELEASES_DATA } from '../Data/ReleasesData'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,18 +7,26 @@ import {
     faArrowLeft,
     faFilePdf,
     faGuitar,
-    faHashtag
+    faHashtag,
+    faSpinner
 } from '@fortawesome/free-solid-svg-icons'
 import { UseDocumentTitle } from '../Hooks/UseDocumentTitle'
+import SongTransposerModal from '../Components/SongTransposerModal'
+import { chordProToPlainLyrics, parseChordProForLyricsPdf, parseChordProForNumbers } from '../utils/ChordPro'
+import { LyricSheetPdfDocument } from '../Components/LyricSheetPdf'
+import { pdf } from '@react-pdf/renderer'
+import { ChordProPdfDocument } from '../Components/ChordProPdf'
 
 export default function MusicDetail() {
     const { id } = useParams()
     const navigate = useNavigate()
     const release = RELEASES_DATA.find((item) => item.id === id)
+    const [isTransposerOpen, setIsTransposerOpen] = useState(false)
+    const [isGeneratingLyrics, setIsGeneratingLyrics] = useState(false)
+    const [isGeneratingNumbers, setIsGeneratingNumbers] = useState(false)
 
     UseDocumentTitle(release ? release.title : 'Release Not Found')
 
-    // Reset scroll position on navigation
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [id])
@@ -35,7 +43,64 @@ export default function MusicDetail() {
     }
 
     const buttonStyle =
-        "w-full flex items-center justify-center gap-3 py-3 px-6 rounded-full bg-neutral-900 border border-neutral-800 text-white font-semibold text-sm hover:bg-neutral-800 hover:border-neutral-700 active:scale-[0.98] transition-all duration-200"
+        "w-full flex items-center justify-center gap-3 py-3 px-6 rounded-full bg-neutral-900 border border-neutral-800 text-white font-semibold text-sm hover:bg-neutral-800 hover:border-neutral-700 active:scale-[0.98] transition-all duration-200 cursor-pointer disabled:opacity-50"
+
+    // Check if valid chordPro content exists
+    const hasChordPro = Boolean(release.chordPro && release.chordPro.trim().length > 0)
+    const activeChordPro = release.chordPro || ''
+
+    // Clean lyrics stripped of chords for on-screen display
+    const displayLyrics = hasChordPro ? chordProToPlainLyrics(release.chordPro) : release.lyrics
+
+    // Downloads clean lyrics-only PDF
+    const handleDownloadLyricsPdf = async () => {
+        if (!hasChordPro) return
+        try {
+            setIsGeneratingLyrics(true)
+            const docData = parseChordProForLyricsPdf(activeChordPro)
+            const blob = await pdf(<LyricSheetPdfDocument docData={docData} />).toBlob()
+
+            const url = URL.createObjectURL(blob)
+            const link = document.createElement('a')
+            link.href = url
+            link.download = `${release.title.replace(/\s+/g, '_')}_Lyrics.pdf`
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+            setTimeout(() => URL.revokeObjectURL(url), 1000)
+        } catch (error) {
+            console.error('Error generating lyrics PDF:', error)
+        } finally {
+            setIsGeneratingLyrics(false)
+        }
+    }
+
+    // Downloads dynamic Nashville Numbers PDF
+    const handleDownloadNumberChart = async () => {
+        if (!hasChordPro) return
+        try {
+            setIsGeneratingNumbers(true)
+            const numberData = parseChordProForNumbers(activeChordPro)
+            numberData.metadata.key = 'Numbers'
+
+            const blob = await pdf(
+                <ChordProPdfDocument parsedData={numberData} semitones={0} />
+            ).toBlob()
+
+            const url = URL.createObjectURL(blob)
+            const link = document.createElement('a')
+            link.href = url
+            link.download = `${release.title.replace(/\s+/g, '_')}_Number_Chart.pdf`
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+            setTimeout(() => URL.revokeObjectURL(url), 1000)
+        } catch (error) {
+            console.error('Error generating number chart:', error)
+        } finally {
+            setIsGeneratingNumbers(false)
+        }
+    }
 
     return (
         <section data-theme="dark" className="w-full min-h-screen bg-black text-white pt-24 pb-28">
@@ -49,10 +114,10 @@ export default function MusicDetail() {
                     Back
                 </button>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                    {/* Left Column: Cover Art & Action Buttons */}
-                    <div className="lg:col-span-5 space-y-6">
-                        <div className="w-full aspect-square rounded-3xl overflow-hidden shadow-2xl border border-neutral-800">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
+                    {/* Centered Sticky Left Column */}
+                    <div className="md:col-span-5 lg:col-span-4 md:sticky md:top-24 self-start flex flex-col items-center space-y-6">
+                        <div className="w-full max-w-[260px] sm:max-w-[300px] aspect-square rounded-3xl overflow-hidden shadow-2xl border border-neutral-800">
                             <img
                                 src={release.cover}
                                 alt={release.title}
@@ -60,7 +125,7 @@ export default function MusicDetail() {
                             />
                         </div>
 
-                        <div className="flex flex-col gap-3">
+                        <div className="w-full flex flex-col gap-2.5 max-w-[300px]">
                             {release.spotifyUrl && (
                                 <a
                                     href={release.spotifyUrl}
@@ -97,6 +162,47 @@ export default function MusicDetail() {
                                 </a>
                             )}
 
+                            {/* Only display ChordPro-generated downloads if chordPro text is present */}
+                            {hasChordPro && (
+                                <>
+                                    <button
+                                        type="button"
+                                        onClick={() => setIsTransposerOpen(true)}
+                                        className={buttonStyle}
+                                    >
+                                        <FontAwesomeIcon icon={faGuitar} className="text-lg text-neutral-400" />
+                                        Transpose &amp; Download Chart
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleDownloadLyricsPdf}
+                                        disabled={isGeneratingLyrics}
+                                        className={buttonStyle}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={isGeneratingLyrics ? faSpinner : faFilePdf}
+                                            className={`text-lg text-neutral-400 ${isGeneratingLyrics ? 'animate-spin' : ''}`}
+                                        />
+                                        {isGeneratingLyrics ? 'Generating PDF...' : 'Download Lyrics Sheet'}
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        onClick={handleDownloadNumberChart}
+                                        disabled={isGeneratingNumbers}
+                                        className={buttonStyle}
+                                    >
+                                        <FontAwesomeIcon
+                                            icon={isGeneratingNumbers ? faSpinner : faHashtag}
+                                            className={`text-lg text-neutral-400 ${isGeneratingNumbers ? 'animate-spin' : ''}`}
+                                        />
+                                        {isGeneratingNumbers ? 'Building Number Chart...' : 'Download Number Chart'}
+                                    </button>
+                                </>
+                            )}
+
+                            {/* Static fallback downloads */}
                             {release.chordsPdf && (
                                 <a
                                     href={release.chordsPdf}
@@ -104,39 +210,16 @@ export default function MusicDetail() {
                                     className={buttonStyle}
                                 >
                                     <FontAwesomeIcon icon={faGuitar} className="text-lg text-neutral-400" />
-                                    Download Chord Chart
-                                </a>
-                            )}
-
-                            {release.numbersPdf && (
-                                <a
-                                    href={release.numbersPdf}
-                                    download
-                                    className={buttonStyle}
-                                >
-                                    <FontAwesomeIcon icon={faHashtag} className="text-lg text-neutral-400" />
-                                    Download Number Chart
-                                </a>
-                            )}
-
-                            {release.lyricsPdf && (
-                                <a
-                                    href={release.lyricsPdf}
-                                    download
-                                    className={buttonStyle}
-                                >
-                                    <FontAwesomeIcon icon={faFilePdf} className="text-lg text-neutral-400" />
-                                    Download Lyrics Sheet
+                                    Download Original Chord Chart
                                 </a>
                             )}
                         </div>
                     </div>
 
-                    {/* Right Column: Title, Description, Tracklist & Lyrics */}
-                    <div className="lg:col-span-7 space-y-8">
-                        {/* Centered on mobile view, left-aligned on desktop */}
-                        <div className="text-center lg:text-left">
-                            <div className="flex justify-center lg:justify-start">
+                    {/* Right Column */}
+                    <div className="md:col-span-7 lg:col-span-8 space-y-8">
+                        <div className="text-center md:text-left">
+                            <div className="flex justify-center md:justify-start">
                                 <span className="text-xs uppercase tracking-widest text-neutral-400 font-bold bg-neutral-900 px-3 py-1 rounded-full border border-neutral-800">
                                     {release.subtitle} &bull; {release.releaseDate}
                                 </span>
@@ -145,13 +228,13 @@ export default function MusicDetail() {
                                 {release.title}
                             </h1>
                             {release.description && (
-                                <p className="text-neutral-400 text-base mt-4 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                <p className="text-neutral-400 text-base mt-4 leading-relaxed max-w-2xl mx-auto md:mx-0">
                                     {release.description}
                                 </p>
                             )}
                         </div>
 
-                        {/* Tracklist linking to /music/song/:id */}
+                        {/* Tracklist */}
                         {release.tracks && release.tracks.length > 0 && (
                             <div className="border-t border-neutral-800 pt-6">
                                 <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-4">
@@ -198,15 +281,15 @@ export default function MusicDetail() {
                             </div>
                         )}
 
-                        {/* Lyrics Area */}
-                        {release.lyrics && (
+                        {/* Clean Plaintext Lyrics */}
+                        {displayLyrics && (
                             <div className="border-t border-neutral-800 pt-6">
                                 <h2 className="text-sm font-bold uppercase tracking-wider text-neutral-400 mb-4">
                                     Lyrics
                                 </h2>
                                 <div className="p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/60 text-left">
                                     <pre className="font-sans text-neutral-300 text-base whitespace-pre-line leading-relaxed">
-                                        {release.lyrics}
+                                        {displayLyrics}
                                     </pre>
                                 </div>
                             </div>
@@ -214,6 +297,15 @@ export default function MusicDetail() {
                     </div>
                 </div>
             </div>
+
+            {hasChordPro && (
+                <SongTransposerModal
+                    isOpen={isTransposerOpen}
+                    onClose={() => setIsTransposerOpen(false)}
+                    songTitle={release.title}
+                    initialChordPro={activeChordPro}
+                />
+            )}
         </section>
     )
 }
