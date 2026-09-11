@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { UseDocumentTitle } from '../Hooks/UseDocumentTitle'
 
 const ARTIST_NAME = 'Valley One Worship'
 const BANDSINTOWN_APP_ID = import.meta.env.VITE_BANDSINTOWN_APP_ID || 'bc509e9534e77989eec3942d780cd7ba'
@@ -46,6 +47,7 @@ export default function Events() {
   }
 
   const bookingButton = (
+
     <Link
       to="/booking"
       className="inline-flex items-center justify-center bg-white text-black px-8 py-3.5 rounded-full font-bold text-sm tracking-wide uppercase transition-all duration-200 hover:bg-neutral-200 active:scale-[0.98] shadow-lg"
