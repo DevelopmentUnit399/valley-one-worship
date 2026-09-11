@@ -9,7 +9,7 @@ export default function Events() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
 
-  UseDocumentTitle('Events | Valley One Worship')
+  document.title = 'Events | Valley One Worship'
 
   useEffect(() => {
     async function fetchEvents() {
