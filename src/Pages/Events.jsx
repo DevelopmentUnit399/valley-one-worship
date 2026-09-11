@@ -8,6 +8,8 @@ export default function Events() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
 
+  UseDocumentTitle('Events | Valley One Worship')
+
   useEffect(() => {
     async function fetchEvents() {
       try {
@@ -53,7 +55,7 @@ export default function Events() {
   )
 
   return (
-    <section className="bg-black text-white py-16 sm:py-20 px-6 sm:px-12 w-full border-t border-neutral-800 h-auto">
+    <section data-theme="dark" className="bg-black text-white py-16 sm:py-20 px-6 sm:px-12 w-full border-t border-neutral-800 h-auto">
       <div className="max-w-5xl mx-auto flex flex-col items-center">
         
         {/* Section Header */}
