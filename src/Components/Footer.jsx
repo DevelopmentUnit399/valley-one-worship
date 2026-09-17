@@ -248,11 +248,18 @@ const Footer = () => {
                                 Home
                             </Link>
                             <Link
+                                className="transition-all duration-200 text-white hover:underline hover:font-bold hover:-translate-y-0.5 active:translate-y-px"
+                                to="/about"
+                                onClick={() => handleSamePageScroll('/about')}
+                            >
+                                About
+                            </Link>
+                            <Link
                                 className="transition-all duration-200 text-white hover:underline hover:font-cold hover:-translate-y-0.5 active:translate-y-px"
                                 to="/music"
                                 onClick={() => handleSamePageScroll('/music')}
                             >
-                                Latest Music
+                                Music
                             </Link>
                         </div>
                     </div>

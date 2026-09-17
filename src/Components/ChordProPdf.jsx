@@ -7,37 +7,32 @@ const styles = StyleSheet.create({
         paddingBottom: 24,
         paddingHorizontal: 28,
         fontFamily: 'Helvetica',
-        fontSize: 8,
-        color: '#1a1a1a',
+        fontSize: 8.5,
+        color: '#000000',
         lineHeight: 1.2
     },
-    header: {
-        marginBottom: 10,
-        borderBottomWidth: 1.5,
-        borderBottomColor: '#2b2d42',
-        borderBottomStyle: 'solid',
-        paddingBottom: 6
+    headerBanner: {
+        backgroundColor: '#e5e7eb',
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingHorizontal: 12,
+        marginBottom: 16,
+        width: '100%'
     },
-    title: {
-        fontSize: 18,
+    titleText: {
+        fontSize: 15,
         fontFamily: 'Helvetica-Bold',
-        color: '#111827',
-        lineHeight: 1.2,
-        marginBottom: 4
+        color: '#000000',
+        letterSpacing: -0.2,
+        marginBottom: 8
     },
-    metaRow: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        gap: 12
+    subHeader: {
+        fontSize: 7.5,
+        color: '#000000',
+        lineHeight: 1.2
     },
-    metaText: {
-        fontSize: 8,
-        color: '#4b5563'
-    },
-    metaBold: {
-        fontFamily: 'Helvetica-Bold',
-        color: '#111827'
+    subHeaderBold: {
+        fontFamily: 'Helvetica-Bold'
     },
     columnsContainer: {
         flexDirection: 'row',
@@ -50,40 +45,37 @@ const styles = StyleSheet.create({
         flexDirection: 'column'
     },
     sectionWrapper: {
-        marginBottom: 6
+        marginBottom: 10
     },
-    comment: {
-        fontSize: 8,
+    sectionTitle: {
+        fontSize: 8.5,
         fontFamily: 'Helvetica-Bold',
-        color: '#4f46e5',
-        marginTop: 4,
-        marginBottom: 2,
-        paddingVertical: 2,
-        paddingHorizontal: 4,
-        backgroundColor: '#eef2ff'
+        color: '#000000',
+        marginBottom: 3
     },
     line: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        marginBottom: 1.5
+        marginBottom: 1
     },
     emptyLine: {
-        height: 4
+        height: 5
     },
     segment: {
         flexDirection: 'column',
         alignItems: 'flex-start'
     },
     chord: {
-        fontSize: 7.5,
+        fontSize: 8,
         fontFamily: 'Helvetica-Bold',
-        color: '#0284c7',
-        minHeight: 9.5
+        color: '#000000',
+        minHeight: 10
     },
     lyric: {
-        fontSize: 7.5,
-        fontFamily: 'Courier',
-        minHeight: 9.5
+        fontSize: 8,
+        fontFamily: 'Helvetica',
+        color: '#000000',
+        minHeight: 10
     }
 })
 
@@ -131,13 +123,18 @@ const splitSectionsIntoColumns = (sections) => {
 
 const renderSection = (section, secIdx) => {
     return (
-        <View key={secIdx} style={styles.sectionWrapper}>
+        // wrap={false} stops react-pdf from splitting mid-verse across pages
+        <View key={secIdx} style={styles.sectionWrapper} wrap={false}>
             {section.map((item, idx) => {
                 if (item.type === 'empty') {
                     return <View key={idx} style={styles.emptyLine} />
                 }
                 if (item.type === 'comment') {
-                    return <Text key={idx} style={styles.comment}>{item.value}</Text>
+                    return (
+                        <Text key={idx} style={styles.sectionTitle}>
+                            {item.value}
+                        </Text>
+                    )
                 }
                 return (
                     <View key={idx} style={styles.line}>
@@ -161,45 +158,35 @@ export const ChordProPdfDocument = ({ parsedData, semitones = 0 }) => {
 
     const isNumberChart = metadata.key?.toLowerCase().includes('number')
 
+    const metaParts = []
+    if (metadata.key) {
+        metaParts.push(isNumberChart ? 'Numbers' : metadata.key)
+    }
+    if (metadata.tempo) {
+        metaParts.push(`${metadata.tempo} bpm`)
+    }
+    if (metadata.time) {
+        metaParts.push(metadata.time)
+    }
+
+    const metaBracket = metaParts.length > 0 ? ` [${metaParts.join(', ')}]` : ''
+
     const sections = groupIntoSections(lines)
     const { left, right } = splitSectionsIntoColumns(sections)
 
     return (
         <Document>
-            <Page size="A4" style={styles.page}>
-                {/* Header */}
-                <View style={styles.header}>
-                    <Text style={styles.title}>{metadata.title}</Text>
-                    <View style={styles.metaRow}>
-                        {metadata.artist ? (
-                            <Text style={styles.metaText}>
-                                Artist: <Text style={styles.metaBold}>{metadata.artist}</Text>
-                            </Text>
-                        ) : null}
-
-                        {/* If it is a number chart, simply display "Key: Numbers" */}
-                        {metadata.key ? (
-                            <Text style={styles.metaText}>
-                                Key: <Text style={styles.metaBold}>{isNumberChart ? 'Numbers' : metadata.key}</Text>
-                            </Text>
-                        ) : null}
-
-                        {metadata.capo && !isNumberChart ? (
-                            <Text style={styles.metaText}>
-                                Capo: <Text style={styles.metaBold}>{metadata.capo}</Text>
-                            </Text>
-                        ) : null}
-
-                        {/* Omit Transposition on Number Charts */}
-                        {!isNumberChart && (
-                            <Text style={styles.metaText}>
-                                Transposition: <Text style={styles.metaBold}>{semitones >= 0 ? `+${semitones}` : semitones} semitones</Text>
-                            </Text>
-                        )}
-                    </View>
+            <Page size="LETTER" style={styles.page}>
+                <View style={styles.headerBanner}>
+                    <Text style={styles.titleText}>
+                        {metadata.title}{metaBracket}
+                    </Text>
+                    <Text style={styles.subHeader}>
+                        <Text style={styles.subHeaderBold}>[Default Arrangement]</Text>
+                        {metadata.artist ? ` by ${metadata.artist}` : ''}
+                    </Text>
                 </View>
 
-                {/* 2-Column Section Layout */}
                 <View style={styles.columnsContainer}>
                     <View style={styles.column}>
                         {left.map((sec, idx) => renderSection(sec, `left-${idx}`))}

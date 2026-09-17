@@ -12,6 +12,7 @@ import About from './Pages/About'
 import MusicDetail from './Pages/MusicDetail'
 import Events from './Pages/Events'
 import Booking from './Pages/Booking'
+import Licensing from './Pages/Licensing'
 
 const SAMPLE_CHORDPRO = `{title: Wayfaring Stranger}
 {artist: Traditional}
@@ -50,6 +51,7 @@ export default function App() {
           <Route path="/music/song/:id" element={<MusicDetail />} />
           <Route path="/events" element={<Events />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/licensing" element={<Licensing />} />
         </Routes>
         <Footer />
       </Router>
