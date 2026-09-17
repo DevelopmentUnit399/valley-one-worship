@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import BookingHome from './BookingHome'
 
 const ARTIST_NAME = 'Valley One Worship'
 const BANDSINTOWN_APP_ID = import.meta.env.VITE_BANDSINTOWN_APP_ID || 'bc509e9534e77989eec3942d780cd7ba'
@@ -167,6 +168,9 @@ export default function EventsSection() {
           </div>
         )}
       </div>
+
+      <BookingHome />
+
     </section>
   )
 }

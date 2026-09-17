@@ -66,18 +66,18 @@ export default function About() {
 
                     {/* Mobile Centered Text (bounded by .row) */}
                     <div className="row">
-                        <div className="max-w-xl mx-auto text-center space-y-6">
-                            <h2 className="text-3xl font-black tracking-tight uppercase">{ABOUT_TEXT[0].text}</h2>
-                            <p className="text-neutral-500 leading-relaxed text-sm">{ABOUT_TEXT[1].text}</p>
-                            <p className="text-neutral-500 leading-relaxed text-sm">{ABOUT_TEXT[2].text}</p>
+                        <div className="max-w-xl mx-15 text-start space-y-6">
+                            <h2 className="text-3xl pt-5 font-black tracking-tight uppercase">{ABOUT_TEXT[0].text}</h2>
+                            <p className="text-black font-semibold leading-relaxed text-md">{ABOUT_TEXT[1].text}</p>
+                            <p className="text-black leading-relaxed text-md">{ABOUT_TEXT[2].text}</p>
                             <br />
                             <h2 className="text-3xl font-black tracking-tight uppercase">{ABOUT_TEXT[3].text}</h2>
-                            <p className="text-neutral-500 leading-relaxed text-sm">{ABOUT_TEXT[4].text}</p>
-                            <p className="text-neutral-500 leading-relaxed text-sm">{ABOUT_TEXT[5].text}</p>
-                            <p className="text-neutral-500 leading-relaxed text-sm">{ABOUT_TEXT[6].text}</p>
-                            <p className="text-neutral-500 leading-relaxed text-sm">{ABOUT_TEXT[7].text}</p>
-                            <p className="text-neutral-500 leading-relaxed text-sm">{ABOUT_TEXT[8].text}</p>
-                            <p className="text-neutral-500 leading-relaxed text-sm">{ABOUT_TEXT[9].text}</p>
+                            <p className="text-black leading-relaxed text-md">{ABOUT_TEXT[4].text}</p>
+                            <p className="text-black leading-relaxed text-md">{ABOUT_TEXT[5].text}</p>
+                            <p className="text-black leading-relaxed text-md">{ABOUT_TEXT[6].text}</p>
+                            <p className="text-black leading-relaxed text-md">{ABOUT_TEXT[7].text}</p>
+                            <p className="text-black leading-relaxed text-md">{ABOUT_TEXT[8].text}</p>
+                            <p className="text-black leading-relaxed text-md">{ABOUT_TEXT[9].text}</p>
                         </div>
                     </div>
                 </div>

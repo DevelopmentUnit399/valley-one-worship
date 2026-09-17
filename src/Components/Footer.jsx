@@ -95,10 +95,10 @@ const Footer = () => {
         <div className="w-full bg-black text-white pt-20 pb-10">
             {/* Mailing List Section */}
             <section data-theme="dark" className="max-w-4xl mx-auto px-6 mb-20 flex flex-col items-center text-center">
-                <p className="text-neutral-300 text-sm sm:text-base font-medium tracking-wide mb-2">
+                <p className="text-neutral-300 text-sm sm:text-2xl font-medium tracking-wide mb-2">
                     Be the first to hear about music and news.
                 </p>
-                <h2 className="text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-wider text-white mb-10">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-wider text-white mb-10">
                     Sign Up With Email And Text
                 </h2>
 
@@ -114,7 +114,7 @@ const Footer = () => {
                                 required
                                 value={formData.firstName}
                                 onChange={handleChange}
-                                className="w-full bg-white text-black px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white transition"
+                                className="w-full bg-white text-black px-4 py-3 text-sm rounded-sm focus:outline-none focus:ring-2 focus:ring-white transition"
                             />
                         </div>
                         <div className="flex flex-col gap-1.5">
@@ -127,7 +127,7 @@ const Footer = () => {
                                 required
                                 value={formData.lastName}
                                 onChange={handleChange}
-                                className="w-full bg-white text-black px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white transition"
+                                className="w-full bg-white text-black px-4 py-3 text-sm rounded-sm focus:outline-none focus:ring-2 focus:ring-white transition"
                             />
                         </div>
                     </div>
@@ -143,7 +143,7 @@ const Footer = () => {
                                 required
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full bg-white text-black px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white transition"
+                                className="w-full bg-white text-black px-4 py-3 text-sm rounded-sm focus:outline-none focus:ring-2 focus:ring-white transition"
                             />
                         </div>
                         <div className="flex flex-col gap-1.5">
@@ -155,7 +155,7 @@ const Footer = () => {
                                 name="phone"
                                 value={formData.phone}
                                 onChange={handleChange}
-                                className="w-full bg-white text-black px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white transition"
+                                className="w-full bg-white text-black px-4 py-3 text-sm rounded-sm focus:outline-none focus:ring-2 focus:ring-white transition"
                             />
                         </div>
                         <div className="flex flex-col gap-1.5">
@@ -168,7 +168,7 @@ const Footer = () => {
                                 required
                                 value={formData.postalCode}
                                 onChange={handleChange}
-                                className="w-full bg-white text-black px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white transition"
+                                className="w-full bg-white text-black px-4 py-3 text-sm rounded-sm focus:outline-none focus:ring-2 focus:ring-white transition"
                             />
                         </div>
                     </div>
@@ -182,12 +182,12 @@ const Footer = () => {
                             onChange={handleChange}
                             className="w-4 h-4 mt-1 accent-white cursor-pointer"
                         />
-                        <label htmlFor="smsConsent" className="text-[11px] leading-relaxed text-neutral-400 cursor-pointer">
+                        <label htmlFor="smsConsent" className="text-[13px] leading-relaxed text-neutral-400 cursor-pointer">
                             Sign up for texts: By checking this box, you agree to receive recurring automated promotional and personalized marketing text messages from Valley One Worship at the cell number used when signing up. Consent is not a condition of any purchase. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg &amp; data rates may apply.
                         </label>
                     </div>
 
-                    <p className="text-[10px] uppercase text-neutral-500 text-center leading-relaxed mt-2 tracking-wider">
+                    <p className="text-[13px] uppercase text-neutral-400 text-center leading-relaxed mt-2 tracking-wider">
                         Emails will be sent by or on behalf of Valley One Worship. You may withdraw your consent at any time. View privacy policy for details.
                     </p>
 
@@ -195,7 +195,7 @@ const Footer = () => {
                         <button
                             type="submit"
                             disabled={status.submitting}
-                            className="bg-white text-black px-12 py-3.5 text-sm font-semibold tracking-wider hover:bg-neutral-200 active:scale-95 transition-all cursor-pointer disabled:opacity-50"
+                            className="bg-white text-black px-12 py-3.5 text-sm font-semibold tracking-wider rounded-sm hover:bg-neutral-200 active:scale-95 transition-all cursor-pointer disabled:opacity-50"
                         >
                             {status.submitting ? 'Submitting...' : 'Submit'}
                         </button>
@@ -216,7 +216,7 @@ const Footer = () => {
 
             <footer className="row pb-6 px-8 flex flex-col">
 
-                <div className="w-full flex flex-col md:flex-row items-center justify-between gap-8">
+                <div className="row flex flex-col md:flex-row items-center justify-between gap-8">
 
                     <div className="flex flex-col gap-4 items-center md:items-start">
                         <h2 className="text-white text-2xl font-bold">
@@ -236,9 +236,6 @@ const Footer = () => {
                     </div>
 
                     <div className="flex flex-col items-center gap-4 md:items-end">
-                        <h2 className="text-white text-2xl font-bold">
-                            Quick Links
-                        </h2>
                         <div className="flex gap-4">
                             <Link
                                 className="transition-all duration-200 text-white hover:underline hover:font-bold hover:-translate-y-0.5 active:translate-y-px"

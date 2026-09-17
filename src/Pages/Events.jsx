@@ -52,7 +52,7 @@ export default function Events() {
       to="/booking"
       className="inline-flex items-center justify-center bg-white text-black px-8 py-3.5 rounded-full font-bold text-sm tracking-wide uppercase transition-all duration-200 hover:bg-neutral-200 active:scale-[0.98] shadow-lg"
     >
-      Want Us? Book Us!
+      Book Us
     </Link>
   )
 
@@ -80,14 +80,9 @@ export default function Events() {
         {/* No Events: Booking Callout */}
         {!loading && events.length === 0 && (
           <div className="w-full bg-neutral-950 border border-neutral-800 rounded-3xl p-10 sm:p-14 flex flex-col items-center text-center max-w-2xl shadow-sm">
-            <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center mb-4 text-neutral-400">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <h3 className="text-2xl font-bold mb-2 text-white">No Upcoming Tour Dates</h3>
+            <h3 className="text-2xl font-bold mb-2 text-white">No Upcoming Shows</h3>
             <p className="text-neutral-400 text-sm sm:text-base mb-8 max-w-md">
-              We currently don't have any scheduled public dates. Interested in having Valley One Worship at your church or conference?
+              There are currently no scheduled shows.<br />Click below to book us for a show, conference, or worship event.
             </p>
             {bookingButton}
           </div>
@@ -106,44 +101,38 @@ export default function Events() {
                 return (
                   <div
                     key={event.id}
-                    className="py-6 px-4 sm:px-6 flex flex-col md:flex-row items-center md:items-center justify-between gap-6 transition-colors duration-200 hover:bg-neutral-950/70 rounded-2xl text-center md:text-left"
+                    className="py-6 px-4 sm:px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 sm:gap-6 transition-colors duration-200 hover:bg-neutral-950/70 rounded-2xl text-center md:text-left"
                   >
                     {/* Left: Date Badge */}
                     <div className="flex items-center gap-4 shrink-0">
                       <div className="flex flex-col">
                         <span className="text-sm sm:text-base font-bold uppercase tracking-wider text-center md:text-left text-gray-50">
-                          {month} {day} &bull; {weekday} &bull; {year} <br /> {time}
+                          {month} {day} {weekday}
                         </span>
                       </div>
                     </div>
+                    
 
                     {/* Center: Title & Location */}
                     <div className="flex-1 flex flex-col text-center md:text-left">
-                      <h3 className="text-lg sm:text-xl font-bold text-gray-50 tracking-tight leading-snug line-clamp-1">
-                        {eventTitle}
-                      </h3>
-
-                      <div className="flex flex-wrap justify-center md:justify-start items-center gap-x-2 gap-y-1 mt-1 text-sm text-neutral-400">
-                        <span className="inline-flex items-center gap-1.5">
-                          <svg className="w-3.5 h-3.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                          </svg>
-                          <span>{locationText}</span>
+                       <span className="inline-flex items-center gap-1.5">
+                          <span className="text-base font-bold">{locationText.toUpperCase()}</span>
                         </span>
-                      </div>
+                      <h3 className="text-sm text-gray-50 tracking-tight leading-snug line-clamp-1">
+                        {eventTitle.toUpperCase()}
+                      </h3>
                     </div>
 
                     {/* Right: Actions */}
                     <div className="flex items-center gap-3 justify-center shrink-0 self-center">
-                      <a
+                      {/* <a
                         href={event.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-neutral-400 hover:text-white transition-colors"
+                        className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white hover:text-white transition-colors"
                       >
                         RSVP
-                      </a>
+                      </a> */}
                       <a
                         href={ticketUrl}
                         target="_blank"

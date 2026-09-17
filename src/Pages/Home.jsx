@@ -105,10 +105,6 @@ export default function Home() {
                 <EventsSection />
             </section>
 
-            <section data-theme="light">
-                <BookingHome />
-            </section>
-
         </div>
     )
 }
